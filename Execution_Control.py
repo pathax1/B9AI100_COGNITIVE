@@ -1,22 +1,14 @@
 import pytest
-import time
 import os
-import pandas as pd
-
+from EDA.DataProcessing import DataManager
 from Utilities.data_loader import load_test_data
+from config import DATA_FILE_PATH
 
-
-
-
-
-#Path from the root folder
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DATA_FILE_PATH = os.path.join(PROJECT_ROOT, "data", "Data.xlsx")
-
-
-def ExtractData():
-    pass
-
+@pytest.mark.parametrize("data", load_test_data(DATA_FILE_PATH, "datasheet"))
+def ExtractData(data):
+    iData = DataManager()
+    iData.yahoofExtractData(data["Stock"])  # Pass Stock to the DataManager method
 
 if __name__ == "__main__":
+    # Run the data extraction
     ExtractData()
